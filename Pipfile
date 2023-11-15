@@ -9,6 +9,7 @@ gunicorn = "*"
 python-dotenv = "*"
 yt-dlp = "*"
 wtforms = "*"
+flask-cors = "*"
 
 [dev-packages]
 
