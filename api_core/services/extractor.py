@@ -1,11 +1,10 @@
 from yt_dlp import YoutubeDL, utils
 
-
 def fetch_info(url: str):
     ydl_opts = { 'quiet': True }
     try:
         with YoutubeDL(ydl_opts) as ydl:
-            metadata = ydl.sanitize_info(ydl.extract_info(url, download= False))
+            metadata = ydl.sanitize_info(ydl.extract_info(url, download=False))
             video_info = metadata.get("formats", [])
 
             custom_meta = [{
@@ -19,8 +18,11 @@ def fetch_info(url: str):
                     "ext": res.get("ext", None),
                     "fps": res.get("fps", None),
                     "file_size": res.get("filesize", None)
-                      } for res in video_info if res.get("acodec") is not None and res.get("format_note") != "storyboard"
-                ]
+                      } for res in video_info if res.get("acodec") is not None 
+                      and not res.get("url","").endswith(".m3u8") 
+                      and not res.get("format_note", "") == "storyboard"
+                ],
+                "thumbnail": metadata.get("thumbnail", None)
             }]
 
             return custom_meta
@@ -29,3 +31,4 @@ def fetch_info(url: str):
             "status": 0,
             "message": "no media streams found or something went wrong!"
         }]
+

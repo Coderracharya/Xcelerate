@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, redirect, url_for
+from flask import Blueprint, redirect, url_for
 
 
 api = Blueprint("API", __name__, url_prefix='/api')
