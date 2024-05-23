@@ -7,6 +7,7 @@ from api_core.services.extractor import fetch_info
 
 video_extractor = Blueprint('extractor', __name__, url_prefix='/extract')
 
+# todo : exception if somehow processing failed
 @video_extractor.post('/')
 def extract_info():
     form = URLForm(request.form)

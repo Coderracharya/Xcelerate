@@ -17,8 +17,10 @@ def fetch_info(url: str):
                     "raw_url": res.get("url", None),
                     "ext": res.get("ext", None),
                     "fps": res.get("fps", None),
-                    "file_size": res.get("filesize", None)
-                      } for res in video_info if res.get("acodec") is not None 
+                    "file_size": res.get("filesize", None),
+                    "video_codec": res.get("vcodec", None),
+                    "audio_codec": res.get("acodec", None)
+                      } for res in video_info if not res.get("acodec") == "none" 
                       and not res.get("url","").endswith(".m3u8") 
                       and not res.get("format_note", "") == "storyboard"
                 ],
