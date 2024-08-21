@@ -1,10 +1,14 @@
 from yt_dlp import YoutubeDL, utils
+from dotenv import load_dotenv
+import os
+
+app_root = os.path.dirname(os.path.abspath(__file__))
 
 def fetch_info(url: str):
+    cookie_path = os.path.join(app_root, '.cookies.txt')
     ydl_opts = { 'quiet': True,
-                'netrc': True,
-                         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3' 
-                         }
+                'cookiefile': cookie_path,
+                }
     try:
         with YoutubeDL(ydl_opts) as ydl:
             metadata = ydl.sanitize_info(ydl.extract_info(url, download=False))
